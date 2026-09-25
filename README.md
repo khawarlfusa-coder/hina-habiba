@@ -41,7 +41,7 @@ Simply double-click or open `index.html` in any web browser (Chrome, Edge, Firef
 ### Option 2: Run with Node.js Server
 Open a terminal in this folder and run:
 ```bash
-node server.js
+node local-server.js
 ```
 or simply double click `start-server.bat`.
 
