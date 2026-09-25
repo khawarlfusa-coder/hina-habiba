@@ -1,7 +1,7 @@
 /**
  * Zero-dependency static file preview server for Hina Habiba Official Website.
  * Automatically detects free ports and avoids collisions.
- * Run using: node server.js [optional-port]
+ * Run using: node scripts/local-server.js [optional-port]
  */
 
 const http = require('http');
@@ -10,7 +10,8 @@ const path = require('path');
 
 // Default to 8080 (or port passed via CLI / environment)
 let DEFAULT_PORT = parseInt(process.argv[2] || process.env.PORT || 8080, 10);
-const BASE_DIR = __dirname;
+// Root directory is one level above scripts/
+const BASE_DIR = path.join(__dirname, '..');
 
 const MIME_TYPES = {
   '.html': 'text/html; charset=utf-8',
@@ -45,7 +46,7 @@ function createPreviewServer(port) {
 
       res.writeHead(200, {
         'Content-Type': contentType,
-        'Cache-Control': 'no-store, no-cache, must-revalidate' // Prevents old site caching
+        'Cache-Control': 'no-store, no-cache, must-revalidate'
       });
 
       const stream = fs.createReadStream(filePath);
@@ -68,7 +69,6 @@ function createPreviewServer(port) {
     console.log(`✨ Hina Habiba Official Website is LIVE!`);
     console.log(`🌐 Click to open: http://localhost:${port}/`);
     console.log(`📁 Directory: ${BASE_DIR}`);
-    console.log(`ℹ️  Note: Old cache disabled so you always see this website!`);
     console.log(`=============================================================\n`);
   });
 }
